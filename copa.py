@@ -1,13 +1,12 @@
 import streamlit as st
-import htbuilder as ht
+import pandas as pd
+import numpy as np
+from scipy.stats import poisson
 
 from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
 from htbuilder.units import percent, px
 from htbuilder.funcs import rgba, rgb
 
-import pandas as pd
-import numpy as np
-from scipy.stats import poisson
 
 
 st.title('🏆 Copa Qatar 2022 🏆')
