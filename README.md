@@ -8,7 +8,7 @@
 
 Utilização de Datascience para geração de estimativas de dados da Copa QATAR 2022.
 
-O objetivo do treinamento é mostrar como criar um aplicativo com Flutter usando uma arquitetura bem definida e desacoplada, seguindo TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e aplicando Design Patterns para resolver alguns problemas comuns.
+Utilização de datasciente para estimar resultados dos jogos da Copa Qatar 2022.
 <br /><br />
 
 ## Contribua com esse Projeto <3
