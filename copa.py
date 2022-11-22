@@ -1,10 +1,17 @@
 import streamlit as st
 
-st.title('🏆 Copa Qatar 2022 🏆')
+from htbuilder import HtmlElement, div, ul, li, br, hr, a, p, img, styles, classes, fonts
+from htbuilder.units import percent, px
+from htbuilder.funcs import rgba, rgb
 
 import pandas as pd
 import numpy as np
 from scipy.stats import poisson
+
+
+st.title('🏆 Copa Qatar 2022 🏆')
+
+
 selecoes = pd.read_excel('dataset/DadosCopaDoMundoQatar2022.xlsx', sheet_name='selecoes', index_col=0)
 
 
@@ -16,9 +23,9 @@ jogos = pd.read_excel('dataset/DadosCopaDoMundoQatar2022.xlsx', sheet_name='jogo
 
 fifa = selecoes['PontosRankingFIFA']
 
-a,b = min(fifa),max(fifa)
+x,b = min(fifa),max(fifa)
 fa, fb = 0.15, 1 #Valor estimado para distância
-b1 = (fb-fa) /(b-a)
+b1 = (fb-fa) /(b-x)
 b0= fb - b * b1
 forca = b0 + b1 * fifa
 
@@ -150,3 +157,84 @@ jogoscopa = pd.read_excel('dataset/outputEstimativasJogosCopa.xlsx', index_col=0
 
 st.table(jogoscopa[['grupo', 'seleção1','seleção2','Vitória', 'Empate', 'Derrota']])
 
+
+#Footer
+
+
+def image(src_as_string, **style):
+    return img(src=src_as_string, style=styles(**style))
+
+
+def link(link, text, **style):
+  return a(_href=link, _target="_blank", style=styles(**style))(text)
+
+
+def layout(*args):
+
+    style = """
+    <style>
+      # MainMenu {visibility: hidden;}
+      footer {visibility: hidden;}
+     .stApp { bottom: 105px; }
+    </style>
+    """
+
+    style_div = styles(
+        position="fixed",
+        left=0,
+        bottom=0,
+        margin=px(0, 0, 0, 0),
+        width=percent(100),
+        color="black",
+        text_align="center",
+        height="auto",
+        opacity=1
+    )
+
+    style_hr = styles(
+        display="block",
+        margin=px(8, 8, "auto", "auto"),
+        border_style="inset",
+        border_width=px(2)
+    )
+
+    body = p()
+    foot = div(
+        style=style_div
+    )(
+        hr(
+            style=style_hr
+        ),
+        body
+    )
+
+    st.markdown(style, unsafe_allow_html=True)
+
+    for arg in args:
+        if isinstance(arg, str):
+            body(arg)
+
+        elif isinstance(arg, HtmlElement):
+            body(arg)
+
+    st.markdown(str(foot), unsafe_allow_html=True)
+
+
+def footer():
+    myargs = ["Criado com ",
+              image('https://avatars3.githubusercontent.com/u/45109972?s=400&v=4',
+                    width=px(25), height=px(25)), " & ", 
+              link("https://www.python.org/", image('https://i.imgur.com/ml09ccU.png',
+                width=px(18), height=px(18), margin= "0em")),
+              " by ",
+              link("https://linkedin.com/in/rodneyneville", "@RodneyNeville"),
+              br(),
+              link("https://ko-fi.com/D1D6GJN08", image('https://i.imgur.com/thJhzOO.png')),
+        
+              
+    ]
+    layout(*myargs)
+
+
+if __name__ == "__main__":
+    footer()
